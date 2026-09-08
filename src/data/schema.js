@@ -4,5 +4,5 @@ export const websiteSchema = {
   name: "NoSignups",
   url: "https://nosignups.net/",
   description:
-    "A directory of open-source tools that work in the browser without signups.",
+    "无需注册、可直接在浏览器使用的开源工具目录。",
 };

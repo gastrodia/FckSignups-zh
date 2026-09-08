@@ -5,6 +5,7 @@ import {
   PROD_JSON_URL,
 } from "../constants/fallbackData";
 import type { Category, LoadStatus, Tool, ToolsData } from "../types";
+import { localizeToolsData, ui } from "../i18n/zh-CN";
 
 export interface ToolSections {
   featured: Tool[];
@@ -61,7 +62,7 @@ export function useTools(): UseToolsReturn {
       // If all fails, load fallback data
       if (!data) {
         data = FALLBACK_DATA;
-        error = `Failed to get the freshest data from prod`;
+        error = "无法获取最新目录数据";
         setErrorMessage(error);
       }
 
@@ -71,18 +72,23 @@ export function useTools(): UseToolsReturn {
   }, []);
 
   function hydrate(data: ToolsData, error: string) {
-    const cats = data.categories ?? [];
+    const cats = [...(data.categories ?? [])];
     if (!cats.find((c) => c.id === "all")) {
       cats.unshift({
         id: "all",
-        name: "All",
+        name: ui.category,
         icon: "◈",
-        description: "All tools",
+        description: ui.tools,
       });
     }
 
-    setAllTools(data.tools);
-    setCategories(cats);
+    const localizedData = localizeToolsData({
+      categories: cats,
+      tools: data.tools ?? [],
+    });
+
+    setAllTools(localizedData.tools);
+    setCategories(localizedData.categories);
     setLoadStatus(!error ? "success" : "error");
   }
 
@@ -134,22 +140,27 @@ export function useTools(): UseToolsReturn {
   };
 }
 
-// Split text into lowercase alphanumeric keywords, so "video-editor",
-// "Video Editor" and "video_editor" all yield ["video", "editor"].
+// Split text into searchable Unicode keywords, so Chinese queries work while
+// preserving the upstream behavior for phrases such as "video-editor".
 function tokenize(text: string): string[] {
   return text
     .toLowerCase()
-    .split(/[^a-z0-9+]+/)
+    .split(/[^\p{L}\p{N}+#]+/u)
     .filter(Boolean);
 }
 
 // Number of query keywords found in the tool's name, description, or tags.
 function matchScore(tool: Tool, keywords: string[]): number {
   if (keywords.length === 0) return 0;
-  const haystack = [tool.name, tool.description, ...tool.tags]
+  const haystack = [
+    tool.name,
+    tool.description,
+    ...tool.tags,
+    ...(tool.tagsZh ?? []),
+  ]
     .join(" ")
     .toLowerCase()
-    .replace(/[^a-z0-9+]+/g, " ");
+    .replace(/[^\p{L}\p{N}+#]+/gu, " ");
   return keywords.filter((kw) => haystack.includes(kw)).length;
 }
 

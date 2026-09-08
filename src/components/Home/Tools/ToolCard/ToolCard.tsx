@@ -6,6 +6,7 @@ import {
 } from "../../../../constants/icons";
 import { useModal } from "../../../../hooks/useModal";
 import { useReport } from "../../../../hooks/useReport";
+import { ui } from "../../../../i18n/zh-CN";
 import type { Category, Tool } from "../../../../types";
 import { formatStars } from "../../../../utils/formatters";
 import { highlightMatches } from "../../../../utils/highlight";
@@ -32,6 +33,7 @@ export function ToolCard({
   const { reportMode } = useReport();
   const { showModalWithID } = useModal();
   const [toastVisible, setToastVisible] = useState(false);
+  const displayTags = tool.tagsZh ?? tool.tags;
 
   function handleReport(tool: Tool) {
     showModalWithID("report-tool", { toolId: tool.id });
@@ -106,23 +108,23 @@ export function ToolCard({
             {tool.flag === "abandoned" && (
               <span
                 className={`${s.flagBadge} ${s.flagAbandoned}`}
-                title="This project is no longer maintained"
+                title={ui.abandoned}
               >
-                Abandoned
+                {ui.abandoned}
               </span>
             )}
             {tool.section === "editors-pick" && (
-              <span className={s.editorsBadge}>Editor's Pick</span>
+              <span className={s.editorsBadge}>{ui.editorsPick}</span>
             )}
             {tool.section === "featured" && (
-              <span className={s.featuredBadge}>Featured</span>
+              <span className={s.featuredBadge}>{ui.featuredBadge}</span>
             )}
             {tool.flag === "new" && (
               <span
                 className={`${s.flagBadge} ${s.flagNew}`}
-                title="Brand new project"
+                title={ui.new}
               >
-                New
+                {ui.new}
               </span>
             )}
           </div>
@@ -133,12 +135,12 @@ export function ToolCard({
         </p>
 
         <ul className={s.cardTags}>
-          {tool.tags.map((tag) => (
-            <li key={tag}>
+          {displayTags.map((tag, index) => (
+            <li key={`${tool.id}-${tag}-${index}`}>
               <button
                 type="button"
                 className={s.tag}
-                aria-label={`Filter tools by ${tag.replace(/-/g, " ")}`}
+                aria-label={ui.filterByTag(tag)}
                 onClick={(e) => {
                   e.stopPropagation();
                   setSearchQuery(tag);
@@ -170,14 +172,14 @@ export function ToolCard({
               onClick={(e) => e.stopPropagation()}
               rel="noopener noreferrer"
               className={s.ghLink}
-              title={`View ${tool.name} repository on GitHub`}
-              aria-label={`View ${tool.name} repository on GitHub`}
+              title={ui.viewOnGithub(tool.name)}
+              aria-label={ui.viewOnGithub(tool.name)}
             >
               <GitHubIcon />
               {tool.license ?? "SRC"}
             </a>
           ) : (
-            <span className={s.webOnly}>WEB_ONLY</span>
+            <span className={s.webOnly}>{ui.webOnly}</span>
           )}
         </div>
       </article>

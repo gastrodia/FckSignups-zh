@@ -2,6 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { FALLBACK_REPO_STARS } from "../../../constants/fallbackData";
 import { REPO_URL } from "../../../constants/global";
 import { useModal } from "../../../hooks/useModal";
+import { ui } from "../../../i18n/zh-CN";
 import s from "./Header.module.css";
 
 interface HeaderProps {
@@ -31,7 +32,7 @@ export function Header({
             href="https://github.com/BraveOPotato/FckSignups"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={`GitHub repository, current stars: ${starsCount}`}
+            aria-label={`GitHub 仓库，当前 ${starsCount} 个 Star`}
           >
             {starsCount}
             <svg aria-hidden="true">
@@ -48,17 +49,13 @@ export function Header({
               <span>Signups</span>
               <span className={s.dotnet}>.net</span>
             </h1>
-            <h2 className={s.formerlyFcksignups}>(formerly FckSignups.com)</h2>
+            <h2 className={s.formerlyFcksignups}>{ui.formerBrand}</h2>
             <div className={s.taglineBlock}>
               <p className={s.taglineMain}>
-                Open Source Tools. No Signups. Right in your browser
+                {ui.taglineMain}
               </p>
               <p className={s.taglineSub}>
-                Ever tried using a simple tool, just for it to have the audacity to ask
-                you for a signup? Ever rolled your eyes at signup screens? If yes,
-                this should help you out! A reviewed list of no-signup tools
-                that work instantly in your browser. Now say it with me: no
-                signups!
+                {ui.taglineSub}
               </p>
             </div>
           </div>
@@ -68,7 +65,7 @@ export function Header({
               className="submit-tool-button"
               onClick={() => showModalWithID("submit-tool")}
             >
-              SUBMIT A TOOL
+              {ui.submitTool}
             </button>
 
             <div className={s.stats}>
@@ -76,14 +73,14 @@ export function Header({
                 <span className="white">
                   {String(toolCount).padStart(3, "0")}
                 </span>{" "}
-                TOOLS LOADED
+                {ui.toolsLoaded}
               </div>
               •
               <div className={s.statRow}>
                 <span className="white">
                   {String(categoryCount).padStart(3, "0")}
                 </span>{" "}
-                CATEGORIES
+                {ui.categories}
               </div>
             </div>
           </div>

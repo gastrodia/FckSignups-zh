@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChatIcon } from "../../../constants/icons";
 import { useModal } from "../../../hooks/useModal";
 import { useReport } from "../../../hooks/useReport";
+import { ui } from "../../../i18n/zh-CN";
 import { Toast } from "../../Shared/Feedback/Toast/Toast";
 import s from "./ReportFloatingWidget.module.css";
 
@@ -13,7 +14,7 @@ export function ReportFloatingWidget() {
     <>
       {reportMode && (
         <Toast
-          innerText="Select an entry to report"
+          innerText={ui.selectEntryToReport}
           onExit={() => setReportMode(false)}
         />
       )}
@@ -33,7 +34,7 @@ function FeedbackButton({
   clicked: boolean;
   setClicked: (clickedStatus: boolean) => void;
 }) {
-  const label = "Report or suggest a tool";
+  const label = ui.reportOrSuggest;
 
   return (
     <button
@@ -64,7 +65,7 @@ function FeedbackMenu() {
           data-sticky={reportMode}
           onClick={() => setReportMode(!reportMode)}
         >
-          REPORT AN ENTRY
+          {ui.reportEntry}
         </button>
       </li>
       <li role="none">
@@ -74,7 +75,7 @@ function FeedbackMenu() {
           className={`${s.menuItem} submit-tool-button`}
           onClick={() => showModalWithID("suggest-tool")}
         >
-          SUGGEST A TOOL FOR US TO MAKE
+          {ui.suggestTool}
         </button>
       </li>
     </ul>

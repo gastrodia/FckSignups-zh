@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ui } from "../../../../i18n/zh-CN";
 import s from "./ScrollToTopButton.module.css";
 
 export function ScrollToTopButton() {
@@ -52,8 +53,8 @@ export function ScrollToTopButton() {
       type="button"
       className={s.scrollToTopButton}
       onClick={scrollToTop}
-      aria-label="Scroll to top"
-      title="Scroll to top"
+      aria-label={ui.scrollToTop}
+      title={ui.scrollToTop}
     >
       <svg aria-hidden="true">
         <use href="/icons-sprite.svg#arrow-up" />

@@ -8,6 +8,7 @@ import {
 } from "react";
 import { fieldsMaker } from "./fieldsMaker";
 import type { ModalConfig } from "./types";
+import { ui } from "../../i18n/zh-CN";
 
 type showModalFields = (
   modalID: string | undefined,
@@ -74,7 +75,7 @@ function ModalRenderer({
           <button
             className="modal-close"
             onClick={closeModal}
-            aria-label={`Close ${modalConfig.modalId.replace("-", " ")} modal`}
+            aria-label={ui.closeModal(modalConfig.modalTitle)}
           >
             ✕
           </button>
@@ -89,25 +90,25 @@ function ModalRenderer({
             id="modal-engine-form"
           >
             {modalInputFields}
-            <input type="submit" className="modal-submit-btn" />
+            <input type="submit" className="modal-submit-btn" value={ui.submit} />
           </form>
         ) : modalStatus === "success" ? (
           <div className="modal-success">
             <div className="modal-success-icon">✓</div>
-            <p className="modal-success-title">TOOL SUBMITTED</p>
+            <p className="modal-success-title">{ui.submitted}</p>
             <p className="modal-success-sub">
-              We'll review it and add it to the index shortly.
+              {ui.submittedHint}
             </p>
             <button className="modal-submit-btn" onClick={closeModal}>
-              CLOSE
+              {ui.close}
             </button>
           </div>
         ) : modalStatus === "failure" ? (
           <p className="modal-error">
-            Encountered an error while submitting...
+            {ui.encounteredError}
           </p>
         ) : (
-          <p>Submitting...</p>
+          <p>{ui.submitting}</p>
         )}
       </div>
     </div>

@@ -212,8 +212,7 @@ body::after {
 }
 
 .modal-title-accent::before {
-	content: "SUBMIT_";
-	color: var(--text);
+	content: "";
 }
 
 .modal-close {

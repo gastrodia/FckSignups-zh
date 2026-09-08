@@ -1,5 +1,6 @@
 import { ExternalIcon } from "../../../constants/icons";
 import { useModal } from "../../../hooks/useModal";
+import { ui } from "../../../i18n/zh-CN";
 import s from "./Footer.module.css";
 
 export function Footer() {
@@ -9,41 +10,39 @@ export function Footer() {
     <footer className={s.footer}>
       <div className={s.footerGrid}>
         <div className={s.footerCol}>
-          <h3>About</h3>
+          <h3>{ui.about}</h3>
           <p>
-            NoSignups (formerly FckSignups) is a curated directory of tools that
-            respect your time. No signups, no spam, no dark patterns.
+            {ui.aboutText}
           </p>
         </div>
         <div className={s.footerCol}>
-          <h3>Contribute</h3>
+          <h3>{ui.contribute}</h3>
           <div className={s.contributeButtons}>
             <button
               className={s.footerBtn}
               onClick={() => showModalWithID("submit-tool")}
             >
-              Submit a tool
+              {ui.submitATool}
             </button>
             <a
               href="https://github.com/BraveOPotato/FckSignups/issues/new"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Report an issue <ExternalIcon />
+              {ui.reportIssue} <ExternalIcon />
             </a>
           </div>
         </div>
         <div className={s.footerCol}>
-          <h3>Legal</h3>
+          <h3>{ui.legal}</h3>
           <p>
-            All tools are independently verified. We don&apos;t track you. We
-            don&apos;t sell data. We don&apos;t care about your email.
+            {ui.legalText}
           </p>
         </div>
       </div>
       <div className={s.footerBottom}>
         <p>
-          © 2026 NOSIGNUPS /// CURATED WITH SPITE ///{" "}
+          © 2026 NOSIGNUPS /// {ui.curatedWithSpite} ///{" "}
           <a
             href="https://github.com/BraveOPotato/FckSignups"
             target="_blank"

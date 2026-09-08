@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ToolSections } from "../../../hooks/useTools";
 import type { Category, LoadStatus, Tool } from "../../../types";
+import { ui } from "../../../i18n/zh-CN";
 import ShowMoreButton from "../../Shared/Buttons/ShowMoreButton/ShowMoreButton";
 import { ToolCard } from "./ToolCard/ToolCard";
 import s from "./Tools.module.css";
@@ -43,7 +44,7 @@ export function Tools({
   if (loadStatus === "loading") {
     return (
       <main className={s.grid}>
-        <div className={s.loading}>Initializing index</div>
+        <div className={s.loading}>{ui.initializing}</div>
       </main>
     );
   }
@@ -56,9 +57,9 @@ export function Tools({
     return (
       <main className={s.grid}>
         <div className={s.empty}>
-          <h3>NO MATCHES FOUND</h3>
+          <h3>{ui.noMatches}</h3>
 
-          <p>Try a different search term or category filter.</p>
+          <p>{ui.noMatchesHint}</p>
         </div>
       </main>
     );
@@ -71,16 +72,16 @@ export function Tools({
     <main className={s.toolSections} id="main-content">
       {loadStatus == "error" && (
         <div className={s.error}>
-          <h3>ERR_LOAD_FAILED</h3>
+          <h3>{ui.loadFailed}</h3>
           <p>{errorMessage}</p>
-          <p className={s.errorFallback}>Falling back to embedded dataset...</p>
+          <p className={s.errorFallback}>{ui.loadFallback}</p>
         </div>
       )}
 
       <>
         {featured.length > 0 && (
           <ToolsSection
-            label="Featured"
+            label={ui.featured}
             variant="featured"
             tools={featured}
             categories={categories}
@@ -91,7 +92,7 @@ export function Tools({
 
         {editorsPicks.length > 0 && (
           <ToolsSection
-            label="Editor's Picks"
+            label={ui.editorsPicks}
             variant="editors"
             tools={editorsPicks}
             categories={categories}
@@ -103,7 +104,7 @@ export function Tools({
         {meetsCriteria.length > 0 &&
           (meetsExpanded || isSearching ? (
             <ToolsSection
-              label="Meets Criteria"
+              label={ui.meetsCriteria}
               variant="meets"
               tools={meetsCriteria}
               categories={categories}

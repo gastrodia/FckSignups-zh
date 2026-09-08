@@ -1,4 +1,5 @@
 import { Tool } from "../../../../types";
+import { ui } from "../../../../i18n/zh-CN";
 import s from "./ShowMoreButton.module.css";
 
 interface ShowMoreButtonProps {
@@ -17,12 +18,8 @@ const ShowMoreButton = ({
         className={s.showMoreBtn}
         onClick={() => setShowMore(true)}
       >
-        <strong>Show More </strong>
-        <p>
-          {meetsCriteria.length} more{" "}
-          {meetsCriteria.length === 1 ? "tool meets" : "tools meet"} the
-          criteria
-        </p>
+        <strong>{ui.showMore} </strong>
+        <p>{ui.moreToolMeets(meetsCriteria.length)}</p>
       </button>
     </div>
   );

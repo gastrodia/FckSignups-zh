@@ -1,4 +1,5 @@
 import type { Category, Tool } from "../../../types";
+import { ui } from "../../../i18n/zh-CN";
 import s from "./ToolFilters.module.css";
 
 interface ToolFiltersProps {
@@ -34,8 +35,8 @@ export function ToolFilters({
             type="search"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
-            placeholder="Search tools by name, tag, or description..."
-            aria-label="Search tools by name, tag, or description"
+            placeholder={ui.searchPlaceholder}
+            aria-label={ui.searchLabel}
             autoComplete="off"
           />
         </div>
@@ -43,7 +44,7 @@ export function ToolFilters({
         <div
           className={s.categories}
           role="group"
-          aria-label="Filter by category"
+          aria-label={ui.filterByCategory}
         >
           {categories.map((cat) => {
             const isCurrent = cat.id === activeCategory;
@@ -70,15 +71,15 @@ export function ToolFilters({
         </div>
 
         <div className={s.resultsCount} aria-live="polite">
-          SHOWING{" "}
+          {ui.showing}{" "}
           <span className="white">
             {String(filteredCount).padStart(2, "0")}
           </span>{" "}
-          OF{" "}
+          {ui.of}{" "}
           <span className="white">
             {String(allTools.length).padStart(2, "0")}
           </span>{" "}
-          TOOLS
+          {ui.tools}
         </div>
       </div>
     </div>

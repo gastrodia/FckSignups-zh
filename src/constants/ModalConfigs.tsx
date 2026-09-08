@@ -1,26 +1,34 @@
 import { type ModalConfig } from "../hooks/useModal";
+import { categoryTranslations, ui } from "../i18n/zh-CN";
+
+const categoryOptions = Object.fromEntries(
+  Object.entries(categoryTranslations)
+    .filter(([id]) => id !== "all")
+    .map(([id, translation]) => [id, translation.name]),
+);
+
 export const MODAL_CONFIGS: ModalConfig[] = [
   {
     modalId: "submit-tool",
-    modalTitle: "TOOL",
+    modalTitle: ui.tool,
     submitURL:
       "https://fcksignups-submit.abdullahalkafajy.workers.dev/submit-tool",
     pages: [
       {
-        title: "Basic Info",
+        title: ui.basicInfo,
         fields: [
           {
             type: "text",
             name: "name",
-            label: "NAME",
-            placeholder: "e.g. Excalidraw",
+            label: ui.name,
+            placeholder: ui.namePlaceholder,
             required: true,
           },
           {
             type: "textarea",
             name: "description",
-            label: "DESCRIPTION",
-            placeholder: "One sentence. What does it do?",
+            label: ui.description,
+            placeholder: ui.descriptionPlaceholder,
             required: true,
           },
           {
@@ -33,32 +41,20 @@ export const MODAL_CONFIGS: ModalConfig[] = [
           {
             type: "text",
             name: "tags",
-            label: "TAGS",
-            placeholder: "drawing, whiteboard, collaboration",
+            label: ui.tags,
+            placeholder: ui.tagsPlaceholder,
           },
           {
             type: "text",
             name: "github",
-            label: "GITHUB",
+            label: ui.github,
             placeholder: "https://github.com/excalidraw/excalidraw",
           },
           {
             type: "select",
             name: "category",
-            label: "CATEGORY",
-            options: {
-              invalid: "--Select one --",
-              productivity: "Productivity",
-              design: "Design & Graphics",
-              development: "Development",
-              writing: "Writing & Docs",
-              privacy: "Privacy",
-              utilities: "Utilities",
-              data: "Data & Analytics",
-              media: "Media",
-              education: "Education",
-              lists: "Lists",
-            },
+            label: ui.category,
+            options: { invalid: ui.selectOne, ...categoryOptions },
             required: true,
           },
         ],
@@ -67,25 +63,25 @@ export const MODAL_CONFIGS: ModalConfig[] = [
   },
   {
     modalId: "report-tool",
-    modalTitle: "REPORT",
+    modalTitle: ui.reportModal,
     submitURL:
       "https://fcksignups-submit.abdullahalkafajy.workers.dev/report-tool",
     pages: [
       {
-        title: "Basic Info",
+        title: ui.basicInfo,
         fields: [
           {
             type: "text",
             name: "toolId",
-            label: "TOOL ID",
-            placeholder: "e.g. excalidraw",
+            label: ui.toolId,
+            placeholder: ui.toolIdPlaceholder,
             required: true,
           },
           {
             type: "textarea",
             name: "report",
-            label: "REPORT",
-            placeholder: "What would you like to report about the tool?",
+            label: ui.report,
+            placeholder: ui.reportPlaceholder,
             required: true,
           },
         ],
@@ -94,19 +90,19 @@ export const MODAL_CONFIGS: ModalConfig[] = [
   },
   {
     modalId: "suggest-tool",
-    modalTitle: "SUGGESTION",
+    modalTitle: ui.suggestionModal,
     submitURL:
       "https://fcksignups-submit.abdullahalkafajy.workers.dev/suggest-tool",
     pages: [
       {
-        title: "Basic Info",
+        title: ui.basicInfo,
         fields: [
           {
-            label: "Your tool idea:",
+            label: ui.toolIdea,
             name: "toolIdea",
             required: true,
             type: "textarea",
-            placeholder: "I'd like a tool that...",
+            placeholder: ui.toolIdeaPlaceholder,
           },
         ],
       },

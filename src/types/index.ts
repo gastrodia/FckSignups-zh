@@ -9,6 +9,7 @@ export interface Tool {
   url: string;
   category: string;
   tags: string[];
+  tagsZh?: string[];
   github?: string;
   license?: string;
   stars?: number;

@@ -5,6 +5,7 @@ import {
   type ModalConfig,
   type TextField,
 } from "./types";
+import { ui } from "../../i18n/zh-CN";
 
 type ModalFieldValues = Record<string, string>;
 type ModalUpdateField = (
@@ -52,7 +53,7 @@ function makeURLField(
         name={field.name}
         placeholder={field.placeholder}
         required={field.required}
-        title="Make sure to prefix with https://"
+        title={ui.httpsHint}
         pattern="https?://.+"
         value={fieldValues[field.name] ?? field.value ?? ""}
         onChange={(event) => updateField(field.name, event.target.value)}
