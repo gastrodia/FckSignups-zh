@@ -3057,7 +3057,8 @@
       "license": "MIT",
       "stars": 24,
       "addedAt": "2026-07-02",
-      "section": "meets-criteria"
+      "section": "meets-criteria",
+      "notRecommendedReason": "AI feature doesn't work anymore"
     },
     {
       "id": "giraffile",
