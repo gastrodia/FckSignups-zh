@@ -4320,6 +4320,196 @@
       "stars": 382,
       "addedAt": "2026-09-07",
       "section": "meets-criteria"
+    },
+    {
+      "id": "openmouse",
+      "name": "OpenMouse",
+      "description": "Configures mouse DPI, polling rate, buttons, and RGB",
+      "url": "https://openmouse.app",
+      "category": "utilities",
+      "tags": [
+        "mouse-configuration"
+      ],
+      "github": "https://github.com/OpenMouse-Project/openmouse",
+      "license": "AGPL-3.0",
+      "stars": 1883,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "fmtly",
+      "name": "fmtly",
+      "description": "General developer tools",
+      "url": "https://fmtly.dev/",
+      "category": "development",
+      "tags": [
+        "dev-tools",
+        "development-tools"
+      ],
+      "github": "https://github.com/oguzhankir/fmtly",
+      "license": "MIT",
+      "stars": 4,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "codilink",
+      "name": "Codi.link",
+      "description": "HTML, CSS, JS editor & playground",
+      "url": "https://editor.tailieubkhn.com",
+      "category": "development",
+      "tags": [
+        "web-playground",
+        "html",
+        "css",
+        "js"
+      ],
+      "github": "https://github.com/tailieubkhn/editor",
+      "license": "NC",
+      "stars": 0,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "weaponizeit",
+      "name": "Weaponize.it",
+      "description": "Go-to resource for gaining insights into pentesting, bug bounty hunting, and scripting",
+      "url": "https://weaponize.it",
+      "category": "education",
+      "tags": [
+        "pen-testing",
+        "cybersecurity"
+      ],
+      "github": "https://github.com/Nickguitar/weaponize.it",
+      "license": "?",
+      "stars": 12,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "mconnect",
+      "name": "MConnect",
+      "description": "A Dynamic HTML Email Builder from templates",
+      "url": "https://mconnect.modesthumanbrands.com/",
+      "category": "productivity",
+      "tags": [
+        "html-email",
+        "custom-email"
+      ],
+      "github": "https://github.com/Modest-Human-Brands/mconnect-web",
+      "license": "MIT",
+      "stars": 0,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "asciidoc-alive",
+      "name": "Asciidoc Alive",
+      "description": "A live AsciiDoc editor with real-time preview, syntax highlighting, and export functionality.",
+      "url": "https://asciidocalive.draftview.app/",
+      "category": "writing",
+      "tags": [
+        "asciidoc-editor",
+        "asciidoc-viewer"
+      ],
+      "github": "https://github.com/gaurav-nelson/asciidocalive",
+      "license": "Apache-2.0",
+      "stars": 18,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "paaster",
+      "name": "Paaster",
+      "description": "Secure and user-friendly pastebin with end-to-end encryption and paste history.",
+      "url": "https://paaster.io/",
+      "category": "utilities",
+      "tags": [
+        "paste-bin"
+      ],
+      "github": "https://github.com/WardPearce/paaster",
+      "license": "AGPL-3.0",
+      "stars": 567,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "dsa-view-view",
+      "name": "DSA View View",
+      "description": "Turns TypeScript algorithm functions into step-by-step visual stories",
+      "url": "https://dsa-view-view.vercel.app/",
+      "category": "education",
+      "tags": [
+        "dsa",
+        "programming"
+      ],
+      "github": "https://github.com/nyaomaru/dsa-view-view",
+      "license": "MIT",
+      "stars": 21,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "stockade",
+      "name": "Stockade",
+      "description": "Stock market simulator for practicing trades with virtual money across stocks, crypto, forex, and futures.",
+      "url": "https://stockademarketsim.com/",
+      "category": "education",
+      "tags": [
+        "stock-market-simulator"
+      ],
+      "github": "https://github.com/KanishkVerma-046/stockade",
+      "license": "?",
+      "stars": 0,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "happytokenizer",
+      "name": "HappyTokenizer",
+      "description": "Helps analyze how text is split into tokens for different GPT and OpenAI model encodings, and estimate cost impact per model.",
+      "url": "https://happytokenizer.com/",
+      "category": "development",
+      "tags": [
+        "tokenizer",
+        "token-cost-analyzer"
+      ],
+      "github": "https://github.com/happytoolin/happytokenizer",
+      "license": "GPL-3.0",
+      "stars": 1,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "happyformatter",
+      "name": "HappyFormatter",
+      "description": "Format code for 40+ different languages & minify for 9 different targets.",
+      "url": "https://happyformatter.com/",
+      "category": "development",
+      "tags": [
+        "code-formatter",
+        "code-minifier"
+      ],
+      "github": "https://github.com/happytoolin/happyformatter",
+      "license": "GPL-3.0",
+      "stars": 0,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
+    },
+    {
+      "id": "champagne-wiki",
+      "name": "Champagne Wiki",
+      "description": "Curated protocols, assets, and tools for the modern archivist.",
+      "url": "https://champagne.pages.dev/",
+      "category": "lists",
+      "tags": [
+        "resources-list"
+      ],
+      "github": "https://github.com/champagnewiki/champagne-wiki",
+      "license": "?",
+      "stars": 101,
+      "addedAt": "2026-09-09",
+      "section": "meets-criteria"
     }
   ]
 }
