@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useSearchParams } from "react-router-dom";
 import {
   DEFAULT_CATEGORY_VALUE,
   DEFAULT_SORT_VALUE,
@@ -34,7 +34,7 @@ interface UseToolsReturn {
   errorMessage: string;
   query: string;
   activeCategory: string;
-  sortBy: string;
+  sortBy: SortOption;
   onCategoryChange: (id: string) => void;
   onSearchChange: (args: { query: string; isInput?: boolean }) => void;
   onSortChange: (option: SortOption) => void;
@@ -57,13 +57,29 @@ export function useTools(): UseToolsReturn {
   const [errorMessage, setErrorMessage] = useState("");
 
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const activeCategory = searchParams.get("category") || DEFAULT_CATEGORY_VALUE;
   const searchQuery = searchParams.get("q") || "";
   const sortBy: SortOption =
     (searchParams.get("sort") as SortOption | null) || DEFAULT_SORT_VALUE;
 
   const [query, setQuery] = useState(searchQuery);
-  const debounceId: React.RefObject<null | number> = useRef(null);
+  const debounceId = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function cancelPendingSearch() {
+    if (debounceId.current !== null) {
+      clearTimeout(debounceId.current);
+      debounceId.current = null;
+    }
+  }
+
+  // Every navigation, including back/forward, restores the input from the URL.
+  // Its cleanup also prevents a pending search from undoing that navigation.
+  useEffect(() => {
+    cancelPendingSearch();
+    setQuery(searchQuery);
+    return cancelPendingSearch;
+  }, [location.key, searchQuery]);
 
   useEffect(() => {
     async function load() {
@@ -144,7 +160,10 @@ export function useTools(): UseToolsReturn {
   );
 
   function onCategoryChange(id: string) {
+    cancelPendingSearch();
     const params = new URLSearchParams(searchParams);
+    // Commit unfinished typing together with the filter change.
+    setQueryParam(params, query);
 
     id === DEFAULT_CATEGORY_VALUE
       ? params.delete("category")
@@ -160,31 +179,33 @@ export function useTools(): UseToolsReturn {
     query: string;
     isInput?: boolean;
   }) {
-    if (isInput) {
-      if (debounceId.current) {
-        clearTimeout(debounceId.current);
-      }
+    cancelPendingSearch();
+    setQuery(query);
 
-      setQuery(query);
+    if (isInput) {
       debounceId.current = setTimeout(
-        () => updateUrlQuery(query),
+        () => {
+          debounceId.current = null;
+          updateUrlQuery(query);
+        },
         DEBOUNCE_SEARCH_FIELD_MS,
       );
       return;
     }
 
-    setQuery(query);
     updateUrlQuery(query);
   }
 
   function updateUrlQuery(query: string) {
     const params = new URLSearchParams(searchParams);
-    query === "" ? params.delete("q") : params.set("q", query);
+    setQueryParam(params, query);
     setSearchParams(params);
   }
 
   function onSortChange(option: SortOption) {
+    cancelPendingSearch();
     const params = new URLSearchParams(searchParams);
+    setQueryParam(params, query);
 
     option === DEFAULT_SORT_VALUE
       ? params.delete("sort")
@@ -209,6 +230,10 @@ export function useTools(): UseToolsReturn {
     onSearchChange,
     onSortChange,
   };
+}
+
+function setQueryParam(params: URLSearchParams, query: string) {
+  query === "" ? params.delete("q") : params.set("q", query);
 }
 
 // Split text into searchable Unicode keywords, so Chinese queries work while
