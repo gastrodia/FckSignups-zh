@@ -1,4 +1,5 @@
-import type { Category, Tool } from "../../../types";
+import { useRef } from "react";
+import type { Category, SortOption, Tool } from "../../../types";
 import { ui } from "../../../i18n/zh-CN";
 import s from "./ToolFilters.module.css";
 
@@ -8,8 +9,10 @@ interface ToolFiltersProps {
   searchQuery: string;
   allTools: Tool[];
   filteredCount: number;
+  sortBy: SortOption;
   onCategoryChange: (id: string) => void;
-  onSearchChange: (q: string) => void;
+  onSearchChange: (args: { query: string; isInput?: boolean }) => void;
+  onSortChange: (sort: SortOption) => void;
 }
 
 export function ToolFilters({
@@ -18,14 +21,26 @@ export function ToolFilters({
   searchQuery,
   allTools,
   filteredCount,
+  sortBy,
   onCategoryChange,
   onSearchChange,
+  onSortChange,
 }: ToolFiltersProps) {
   // Count tools per category for badge
   const counts: Record<string, number> = { all: allTools.length };
   allTools.forEach((t) => {
     counts[t.category] = (counts[t.category] ?? 0) + 1;
   });
+
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  function handleClearInput() {
+    onSearchChange({ query: "" });
+
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
+  }
 
   return (
     <div className={s.controls}>
@@ -34,11 +49,25 @@ export function ToolFilters({
           <input
             type="search"
             value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
+            onChange={(e) =>
+              onSearchChange({ query: e.target.value, isInput: true })
+            }
             placeholder={ui.searchPlaceholder}
             aria-label={ui.searchLabel}
             autoComplete="off"
+            ref={inputRef}
           />
+
+          <button
+            type="button"
+            className={s.clearButton}
+            onClick={handleClearInput}
+            aria-label={ui.clearSearch}
+          >
+            <svg aria-hidden="true">
+              <use href="/icons-sprite.svg#x-mark" />
+            </svg>
+          </button>
         </div>
 
         <div
@@ -57,7 +86,7 @@ export function ToolFilters({
                 data-id={cat.id}
                 title={cat.description}
                 aria-pressed={isCurrent}
-                aria-label={`${cat.name}, ${countNum} tools`}
+                aria-label={`${cat.name}，${countNum} ${ui.tools}`}
                 onClick={() => onCategoryChange(cat.id)}
               >
                 <span aria-hidden="true">{cat.icon}</span>
@@ -70,16 +99,34 @@ export function ToolFilters({
           })}
         </div>
 
-        <div className={s.resultsCount} aria-live="polite">
-          {ui.showing}{" "}
-          <span className="white">
-            {String(filteredCount).padStart(2, "0")}
-          </span>{" "}
-          {ui.of}{" "}
-          <span className="white">
-            {String(allTools.length).padStart(2, "0")}
-          </span>{" "}
-          {ui.tools}
+        <div className={s.resultsToolbar}>
+          <div className={s.resultsCount} aria-live="polite">
+            {ui.showing}{" "}
+            <span className="white">
+              {String(filteredCount).padStart(2, "0")}
+            </span>{" "}
+            {ui.of}{" "}
+            <span className="white">
+              {String(allTools.length).padStart(2, "0")}
+            </span>{" "}
+            {ui.tools}
+          </div>
+
+          <div className={s.sortControls}>
+            <label htmlFor="sort-select">{ui.sortBy}</label>
+            <select
+              id="sort-select"
+              className={s.sortSelect}
+              value={sortBy}
+              onChange={(event) =>
+                onSortChange(event.target.value as SortOption)
+              }
+            >
+              <option value="stars">{ui.sortStars}</option>
+              <option value="newest">{ui.sortNewest}</option>
+              <option value="oldest">{ui.sortOldest}</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

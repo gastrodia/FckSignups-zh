@@ -17,14 +17,14 @@ interface ToolCardProps {
   tool: Tool;
   category: Category | undefined;
   searchKeywords?: string[];
-  setSearchQuery: (query: string) => void;
+  onSearchChange: (args: { query: string; isInput?: boolean }) => void;
 }
 
 export function ToolCard({
   tool,
   category,
   searchKeywords = [],
-  setSearchQuery,
+  onSearchChange,
 }: ToolCardProps) {
   const cat: Pick<Category, "icon" | "name"> = category ?? {
     icon: "◉",
@@ -143,7 +143,7 @@ export function ToolCard({
                 aria-label={ui.filterByTag(tag)}
                 onClick={(e) => {
                   e.stopPropagation();
-                  setSearchQuery(tag);
+                  onSearchChange({ query: tag });
                 }}
               >
                 #{highlightMatches(tag, searchKeywords)}
